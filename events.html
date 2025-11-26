@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>События — GraffLib</title>
+  <link rel="stylesheet" href="assets/css/style.css" />
+  <meta name="description" content="GraffLib - библиотека граффити работ, каталог художников и событий уличного искусства">
+  <meta property="og:title" content="GraffLib - Библиотека граффити">
+  <meta property="og:description" content="Каталог работ, профили художников, анонсы событий уличного искусства">
+  <meta property="og:type" content="website">
+  <link rel="icon" href="assets/images/favicon.ico" type="image/x-icon">
+</head>
+<body>
+  <header class="container header">
+    <div class="brand">
+      <div class="logo graffiti">G</div>
+      <div>
+        <div class="graffiti" style="font-size:20px">GraffLib</div>
+        <div style="font-size:12px;color:var(--muted)">Библиотека работ граффити</div>
+      </div>
+    </div>
+    <nav class="nav">
+      <a href="index.html">Главная</a>
+      <a href="works.html">Работы</a>
+      <a href="artists.html">Художники</a>
+      <a href="events.html">События</a>
+      <a href="about.html">О нас</a>
+      <a href="favorites.html">Избранная</a>
+      <a href="cart.html">Корзина</a>
+      <a href="workers.html">Разработчики</a>
+    </nav>
+  </header>
+
+  <main class="container">
+    <h2 class="graffiti">События</h2>
+    <p style="color:var(--muted)">Ближайшие выставки, джемы и воркшопы.</p>
+
+    <div class="grid" style="margin-top:18px">
+      <div class="card">
+        <div style="font-weight:700">Jam Moscow — 12 Дек</div>
+        <div style="color:var(--muted);margin-top:6px">Описание события и ссылка на участие.</div>
+        <div style="margin-top:10px"><button class="btn">Подробнее</button></div>
+      </div>
+      <div class="card">
+        <div style="font-weight:700">Exhibit — 20 Янв</div>
+        <div style="color:var(--muted);margin-top:6px">Коллекция работ в галерее.</div>
+        <div style="margin-top:10px"><button class="btn">Подробнее</button></div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="container footer">
+    <div>© GraffLib</div>
+    <div>made with spray & code</div>
+  </footer>
+
+    <div id="artModal" class="modal-overlay" aria-hidden="true" role="dialog" aria-labelledby="modalTitle">
+      <div class="modal-card">
+        <button class="close btn" style="float:right" aria-label="Close modal">Close</button>
+        <h3 id="modalTitle" class="modal-title graffiti" style="margin-top:4px">Title</h3>
+        <div class="modal-img"></div>
+      </div>
+    </div>
+  <script src="assets/js/data.js"></script>
+  <script src="assets/js/app.js"></script>
+</body>
+</html>

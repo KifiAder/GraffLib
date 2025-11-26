@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Главная — GraffLib</title>
+  <meta name="description" content="GraffLib - библиотека граффити работ, каталог художников и событий уличного искусства">
+  <meta property="og:title" content="GraffLib - Библиотека граффити">
+  <meta property="og:description" content="Каталог работ, профили художников, анонсы событий уличного искусства">
+  <meta property="og:type" content="website">
+  <link rel="icon" href="assets/images/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="assets/css/style.css" />
+</head>
+<body>
+  <header class="container header">
+    <div class="brand">
+      <div class="logo graffiti">G</div>
+      <div>
+        <div class="graffiti" style="font-size:20px">GraffLib</div>
+        <div style="font-size:12px;color:var(--muted)">Библиотека работ граффити</div>
+      </div>
+    </div>
+    <nav class="nav">
+      <a href="index.html">Главная</a>
+      <a href="works.html">Работы</a>
+      <a href="artists.html">Художники</a>
+      <a href="events.html">События</a>
+      <a href="about.html">О нас</a>
+      <a href="favorites.html">Избранная</a>
+      <a href="cart.html">Корзина</a>
+    </nav>
+    <div class="controls">
+      <button id="menuBtn" class="btn">☰</button>
+    </div>
+  </header>
+
+  <main class="container" style="padding-bottom:80px">
+    <section class="hero">
+      <div class="hero-card">
+        <h1 class="graffiti" style="font-size:34px;margin:0">GraffLib — библиотека граффити</h1>
+        <p style="color:var(--muted);margin-top:6px">Каталог работ, профили художников, анонсы событий и мерч.</p>
+        <div style="margin-top:14px">
+          <button class="btn ghost" onclick="location.href='works.html'">Каталог работ</button>
+          <button class="btn" onclick="location.href='artists.html'">Художники</button>
+        </div>
+
+        <h3 style="margin-top:20px">Популярные работы</h3>
+        <div class="grid" id="grid-home">
+        </div>
+      </div>
+
+      <aside class="hero-card">
+        <div class="graffiti" style="font-weight:700;font-size:20px">Quick links</div>
+        <div style="margin-top:12px;display:flex;flex-direction:column;gap:8px">
+          <a class="btn" href="events.html">События</a>
+          <a class="btn" href="favorites.html">Избранная</a>
+        </div>
+        <div style="margin-top:20px;color:var(--muted)">
+          <div style="font-weight:700">Merch</div>
+          <p>Футболки, наклейки и более. Поддержите художников.</p>
+          <button class="btn">Shop</button>
+        </div>
+      </aside>
+    </section>
+
+    <section style="margin-top:26px">
+      <h3 class="graffiti" style="font-size:22px">Недавние поступления</h3>
+      <div class="grid">
+        <div class="card js-art" data-title="New 1" data-img="assets/images/sketch.png">
+          <div class="thumb">New 1</div>
+          <div style="display:flex;justify-content:space-between;align-items:center">
+            <div style="font-weight:700">New 1</div>
+            <div>
+              <button class="btn js-fav" data-id="n1">❤</button>
+              <button class="btn js-addcart" data-id="n1">Add to cart</button>
+            </div>
+          </div>
+        </div>
+        <div class="card js-art" data-title="New 2" data-img="assets/images/sketch.png">
+          <div class="thumb">New 2</div>
+          <div style="display:flex;justify-content:space-between;align-items:center">
+            <div style="font-weight:700">New 2</div>
+            <div>
+              <button class="btn js-fav" data-id="n2">❤</button>
+              <button class="btn js-addcart" data-id="n2">Add to cart</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="container footer">
+    <div>© GraffLib</div>
+    <div>made with spray & code</div>
+  </footer>
+
+    <div id="artModal" class="modal-overlay" aria-hidden="true" role="dialog" aria-labelledby="modalTitle">
+      <div class="modal-card">
+        <button class="close btn" style="float:right" aria-label="Close modal">Close</button>
+        <h3 id="modalTitle" class="modal-title graffiti" style="margin-top:4px">Title</h3>
+        <div class="modal-img"></div>
+      </div>
+    </div>
+
+  <script src="assets/js/data.js"></script>
+  <script src="assets/js/app.js"></script>
+
+</body>
+</html>
