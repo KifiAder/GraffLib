@@ -9,14 +9,32 @@
 </head>
 <body>
   <header class="container header">
-    <!-- header content -->
+    <div class="brand">
+      <div class="logo graffiti">G</div>
+      <div>
+        <div class="graffiti" style="font-size:20px">GraffLib</div>
+        <div style="font-size:12px;color:var(--muted)">Библиотека работ граффити</div>
+      </div>
+    </div>
+    <nav class="nav">
+      <a href="index.html">Главная</a>
+      <a href="works.html">Работы</a>
+      <a href="artists.html">Художники</a>
+      <a href="events.html">События</a>
+      <a href="about.html">О нас</a>
+      <a href="favorites.html">Избранная</a>
+      <a href="cart.html">Корзина</a>
+    </nav>
+    <div class="controls">
+      <button id="menuBtn" class="btn">☰</button>
+    </div>
   </header>
 
   <main class="container main-container">
     <h2 class="graffiti">Каталог работ</h2>
     <p style="color:var(--muted)">Фильтры и коллекции — здесь будут отображены работы.</p>
 
-    <!-- Статические фильтры как временное решение -->
+    <!-- Статические фильтры -->
     <div class="filters-container">
       <div style="display: flex; gap: 16px; align-items: center; flex-wrap: wrap; margin: 20px 0;">
         <div style="display: flex; align-items: center; gap: 8px;">

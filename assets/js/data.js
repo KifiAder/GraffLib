@@ -3,7 +3,7 @@ window.artworks = [
   {
     id: 'w1',
     title: 'Уличная революция',
-    image: 'assets/images/sketch.png',
+    image: 'assets/img/sketch.png',
     artist: 'Алексей Петров',
     city: 'Москва',
     style: 'Мурал',
@@ -13,7 +13,7 @@ window.artworks = [
   {
     id: 'w2', 
     title: 'Граффити волна',
-    image: 'assets/images/sketch.png',
+    image: 'assets/img/sketch.png',
     artist: 'Мария Иванова',
     city: 'Санкт-Петербург',
     style: 'Шрифты',
@@ -23,7 +23,7 @@ window.artworks = [
   {
     id: 'w3',
     title: 'Урбан мечты',
-    image: 'assets/images/sketch.png', 
+    image: 'assets/img/sketch.png', 
     artist: 'Дмитрий Сидоров',
     city: 'Москва',
     style: 'Персонажи',
@@ -33,7 +33,7 @@ window.artworks = [
   {
     id: 'w4',
     title: 'Металлический взгляд',
-    image: 'assets/images/sketch.png',
+    image: 'assets/img/sketch.png',
     artist: 'Ольга Козлова', 
     city: 'Екатеринбург',
     style: '3D',
@@ -43,7 +43,7 @@ window.artworks = [
   {
     id: 'w5',
     title: 'Цветные мысли',
-    image: 'assets/images/sketch.png',
+    image: 'assets/img/sketch.png',
     artist: 'Сергей Новиков',
     city: 'Москва',
     style: 'Абстракция',
@@ -53,7 +53,7 @@ window.artworks = [
   {
     id: 'w6',
     title: 'Ночной город',
-    image: 'assets/images/sketch.png',
+    image: 'assets/img/sketch.png',
     artist: 'Анна Смирнова',
     city: 'Казань', 
     style: 'Реализм',
