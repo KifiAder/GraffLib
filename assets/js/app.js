@@ -4,6 +4,7 @@
    - модальное окно с доступностью
    - избранное и корзина с проверкой дубликатов
    - инициализация состояния кнопок
+   - система фильтрации работ
 */
 document.addEventListener('DOMContentLoaded', ()=>{
 
@@ -76,12 +77,132 @@ document.addEventListener('DOMContentLoaded', ()=>{
     });
   }
 
+  // Filter functionality
+  function initializeFilters() {
+    const filterContainer = document.querySelector('.filters-container');
+    if (!filterContainer || !window.filterData) return;
+
+    filterContainer.innerHTML = `
+      <div style="display: flex; gap: 16px; align-items: center; flex-wrap: wrap; margin: 20px 0;">
+        <div style="display: flex; align-items: center; gap: 8px;">
+          <label style="color: var(--muted); font-size: 14px;">Город:</label>
+          <select class="filter-select" id="cityFilter">
+            ${window.filterData.cities.map(city => 
+              `<option value="${city}">${city}</option>`
+            ).join('')}
+          </select>
+        </div>
+        <div style="display: flex; align-items: center; gap: 8px;">
+          <label style="color: var(--muted); font-size: 14px;">Стиль:</label>
+          <select class="filter-select" id="styleFilter">
+            ${window.filterData.styles.map(style => 
+              `<option value="${style}">${style}</option>`
+            ).join('')}
+          </select>
+        </div>
+        <button class="btn ghost" id="resetFilters">Сбросить фильтры</button>
+      </div>
+    `;
+
+    // Add event listeners
+    const cityFilter = document.getElementById('cityFilter');
+    const styleFilter = document.getElementById('styleFilter');
+    const resetBtn = document.getElementById('resetFilters');
+
+    if (cityFilter) cityFilter.addEventListener('change', applyFilters);
+    if (styleFilter) styleFilter.addEventListener('change', applyFilters);
+    if (resetBtn) resetBtn.addEventListener('click', resetFilters);
+  }
+
+  function applyFilters() {
+    const cityFilter = document.getElementById('cityFilter');
+    const styleFilter = document.getElementById('styleFilter');
+    
+    if (!cityFilter || !styleFilter || !window.artworks) return;
+
+    const selectedCity = cityFilter.value;
+    const selectedStyle = styleFilter.value;
+
+    const filteredArtworks = window.artworks.filter(art => {
+      const cityMatch = selectedCity === 'Все' || art.city === selectedCity;
+      const styleMatch = selectedStyle === 'Все' || art.style === selectedStyle;
+      return cityMatch && styleMatch;
+    });
+
+    renderFilteredArtworks(filteredArtworks);
+  }
+
+  function renderFilteredArtworks(filteredArtworks) {
+    const grid = document.querySelector('.grid');
+    if (!grid) return;
+
+    grid.innerHTML = '';
+
+    if (filteredArtworks.length === 0) {
+      grid.innerHTML = `
+        <div class="card" style="grid-column: 1 / -1;">
+          <div class="thumb" style="height: 200px; display: flex; align-items: center; justify-content: center; color: var(--muted);">
+            Ничего не найдено по выбранным фильтрам
+          </div>
+        </div>
+      `;
+      return;
+    }
+
+    filteredArtworks.forEach(art => {
+      const card = document.createElement('div');
+      card.className = 'card js-art';
+      card.dataset.title = art.title;
+      card.dataset.img = art.image;
+      
+      card.innerHTML = `
+        <div class="thumb" style="background-image: url('${art.image}'); background-size: cover; background-position: center;">
+          ${art.title}
+        </div>
+        <div style="display:flex;justify-content:space-between;align-items:center">
+          <div style="font-weight:700">${art.title}</div>
+          <div>
+            <button class="btn js-fav" data-id="${art.id}">❤</button>
+            <button class="btn js-addcart" data-id="${art.id}">Add to cart</button>
+          </div>
+        </div>
+        <div style="color:var(--muted); font-size:14px; margin-top:8px;">
+          Художник: ${art.artist} • Город: ${art.city}<br>
+          Стиль: ${art.style} • ${art.price}
+        </div>
+      `;
+      
+      grid.appendChild(card);
+    });
+
+    // Re-initialize buttons for new elements
+    initializeFavorites();
+    initializeCart();
+  }
+
+  function resetFilters() {
+    const cityFilter = document.getElementById('cityFilter');
+    const styleFilter = document.getElementById('styleFilter');
+    
+    if (cityFilter) cityFilter.value = 'Все';
+    if (styleFilter) styleFilter.value = 'Все';
+    
+    applyFilters();
+  }
+
   // Render artworks from data.js
   function renderArtworks() {
     const grid = document.querySelector('.grid');
     // Проверяем, есть ли grid на странице и не загружены ли уже artworks
     if (!grid || window.artworksLoaded || !window.artworks) return;
     
+    // Initialize filters if container exists
+    const filterContainer = document.querySelector('.filters-container');
+    if (filterContainer && window.filterData) {
+      initializeFilters();
+    }
+    
+    // Render all artworks initially
     window.artworks.forEach(art => {
       const card = document.createElement('div');
       card.className = 'card js-art';

@@ -34,14 +34,11 @@
     <h2 class="graffiti">Каталог работ</h2>
     <p style="color:var(--muted)">Фильтры и коллекции — здесь будут отображены работы.</p>
 
-    <div style="display:flex;gap:12px;margin-top:12px;flex-wrap:wrap">
-      <div class="badge">Фильтр: Все</div>
-      <div class="badge">Стиль: Мурал</div>
-      <div class="badge">Город: Москва</div>
-    </div>
+    <!-- Контейнер для фильтров -->
+    <div class="filters-container"></div>
 
-    </div>
     <div class="grid" style="margin-top:18px; margin-bottom: 40px;">
+      <!-- Карточки будут сгенерированы JavaScript -->
     </div>
   </main>
 
@@ -57,7 +54,7 @@
       <h3 id="modalTitle" class="modal-title graffiti" style="margin-top:4px">Title</h3>
       <div class="modal-img"></div>
     </div>
-
+  </div>
 
   <script src="assets/js/data.js"></script>
   <script src="assets/js/app.js"></script>

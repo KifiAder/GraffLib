@@ -282,3 +282,34 @@ main {
 .grid:last-child {
   margin-bottom: 20px;
 }
+
+/* Filter styles */
+.filters-container {
+  margin: 20px 0;
+}
+
+.filter-select {
+  background: var(--card);
+  color: var(--accent);
+  border: 1px solid rgba(255,255,255,0.06);
+  padding: 8px 12px;
+  border-radius: 8px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.18s ease;
+}
+
+.filter-select:hover {
+  background: rgba(255,255,255,0.05);
+}
+
+.filter-select:focus {
+  outline: none;
+  border-color: rgba(255,255,255,0.1);
+}
+
+/* Active filter state */
+.filter-select.active {
+  border-color: var(--accent);
+  background: rgba(255,255,255,0.08);
+}
