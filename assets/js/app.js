@@ -190,16 +190,53 @@ document.addEventListener('DOMContentLoaded', ()=>{
     applyFilters();
   }
 
-  // Render artworks from data.js
   function renderArtworks() {
     const grid = document.querySelector('.grid');
-    // Проверяем, есть ли grid на странице и не загружены ли уже artworks
-    if (!grid || window.artworksLoaded || !window.artworks) return;
+    
+    // Расширенная проверка
+    if (!grid) {
+      console.log('Grid container not found');
+      return;
+    }
+    
+    if (window.artworksLoaded) {
+      console.log('Artworks already loaded');
+      return;
+    }
+    
+    if (!window.artworks) {
+      console.log('No artworks data found');
+      // Покажем сообщение об отсутствии данных
+      grid.innerHTML = `
+        <div class="card" style="grid-column: 1 / -1;">
+          <div class="thumb" style="height: 200px; display: flex; align-items: center; justify-content: center; color: var(--muted);">
+            Данные не загружены. Проверьте файл data.js
+          </div>
+        </div>
+      `;
+      return;
+    }
+    
+    console.log('Rendering artworks:', window.artworks.length);
     
     // Initialize filters if container exists
     const filterContainer = document.querySelector('.filters-container');
-    if (filterContainer && window.filterData) {
-      initializeFilters();
+    if (filterContainer) {
+      console.log('Initializing filters');
+      // Если есть статические фильтры, добавим обработчики
+      const cityFilter = document.getElementById('cityFilter');
+      const styleFilter = document.getElementById('styleFilter');
+      const resetBtn = document.getElementById('resetFilters');
+      
+      if (cityFilter && styleFilter) {
+        console.log('Adding event listeners to static filters');
+        cityFilter.addEventListener('change', applyFilters);
+        styleFilter.addEventListener('change', applyFilters);
+        if (resetBtn) resetBtn.addEventListener('click', resetFilters);
+      } else if (window.filterData) {
+        // Если нет статических фильтров, создадим динамические
+        initializeFilters();
+      }
     }
     
     // Render all artworks initially
@@ -209,8 +246,11 @@ document.addEventListener('DOMContentLoaded', ()=>{
       card.dataset.title = art.title;
       card.dataset.img = art.image;
       
+      // Используем placeholder если изображение не загружается
+      const imageStyle = art.image ? `background-image: url('${art.image}')` : 'background: #111';
+      
       card.innerHTML = `
-        <div class="thumb" style="background-image: url('${art.image}'); background-size: cover; background-position: center;">
+        <div class="thumb" style="${imageStyle}; background-size: cover; background-position: center;">
           ${art.title}
         </div>
         <div style="display:flex;justify-content:space-between;align-items:center">
@@ -233,6 +273,8 @@ document.addEventListener('DOMContentLoaded', ()=>{
     // Переинициализируем кнопки для новых элементов
     initializeFavorites();
     initializeCart();
+    
+    console.log('Artworks rendered successfully');
   }
 
   // Artwork preview modal - FIXED CLICK HANDLER

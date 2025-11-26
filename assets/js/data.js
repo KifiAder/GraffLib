@@ -59,26 +59,6 @@ window.artworks = [
     style: 'Реализм',
     price: '14000 ₽',
     tags: ['реализм', 'город', 'ночь']
-  },
-  {
-    id: 'w7',
-    title: 'Стихия улиц',
-    image: 'assets/images/sketch.png',
-    artist: 'Иван Кузнецов',
-    city: 'Москва',
-    style: 'Мурал',
-    price: '17000 ₽',
-    tags: ['мурал', 'динамика', 'энергия']
-  },
-  {
-    id: 'w8',
-    title: 'Типографика',
-    image: 'assets/images/sketch.png',
-    artist: 'Елена Воробьева',
-    city: 'Санкт-Петербург',
-    style: 'Шрифты',
-    price: '13000 ₽',
-    tags: ['шрифты', 'буквы', 'композиция']
   }
 ];
 
