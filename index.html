@@ -8,13 +8,15 @@
   <meta property="og:title" content="GraffLib - Библиотека граффити">
   <meta property="og:description" content="Каталог работ, профили художников, анонсы событий уличного искусства">
   <meta property="og:type" content="website">
-  <link rel="icon" href="assets/images/favicon.ico" type="image/x-icon">
+  <link rel="icon" href="assets/img/logo/logo.svg" type="image/svg+xml">
   <link rel="stylesheet" href="assets/css/style.css" />
 </head>
 <body>
   <header class="container header">
     <div class="brand">
-      <div class="logo graffiti">G</div>
+      <div class="logo">
+        <img src="assets/img/logo/logo.svg" alt="GraffLib" width="100px" height="100px">
+      </div>
       <div>
         <div class="graffiti" style="font-size:20px">GraffLib</div>
         <div style="font-size:12px;color:var(--muted)">Библиотека работ граффити</div>
@@ -62,33 +64,6 @@
         </div>
       </aside>
     </section>
-
-    <section style="margin-top:26px">
-      <h3 class="graffiti" style="font-size:22px">Недавние поступления</h3>
-      <div class="grid">
-        <div class="card js-art" data-title="New 1" data-img="assets/images/sketch.png">
-          <div class="thumb">New 1</div>
-          <div style="display:flex;justify-content:space-between;align-items:center">
-            <div style="font-weight:700">New 1</div>
-            <div>
-              <button class="btn js-fav" data-id="n1">❤</button>
-              <button class="btn js-addcart" data-id="n1">Add to cart</button>
-            </div>
-          </div>
-        </div>
-        <div class="card js-art" data-title="New 2" data-img="assets/images/sketch.png">
-          <div class="thumb">New 2</div>
-          <div style="display:flex;justify-content:space-between;align-items:center">
-            <div style="font-weight:700">New 2</div>
-            <div>
-              <button class="btn js-fav" data-id="n2">❤</button>
-              <button class="btn js-addcart" data-id="n2">Add to cart</button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
   </main>
 
   <footer class="container footer">
@@ -96,16 +71,15 @@
     <div>made with spray & code</div>
   </footer>
 
-    <div id="artModal" class="modal-overlay" aria-hidden="true" role="dialog" aria-labelledby="modalTitle">
-      <div class="modal-card">
-        <button class="close btn" style="float:right" aria-label="Close modal">Close</button>
-        <h3 id="modalTitle" class="modal-title graffiti" style="margin-top:4px">Title</h3>
-        <div class="modal-img"></div>
-      </div>
+  <div id="artModal" class="modal-overlay" aria-hidden="true" role="dialog" aria-labelledby="modalTitle">
+    <div class="modal-card">
+      <button class="close btn" style="float:right" aria-label="Close modal">Close</button>
+      <h3 id="modalTitle" class="modal-title graffiti" style="margin-top:4px">Title</h3>
+      <div class="modal-img"></div>
     </div>
+  </div>
 
   <script src="assets/js/data.js"></script>
   <script src="assets/js/app.js"></script>
-
 </body>
 </html>

@@ -3,11 +3,11 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Работы — GraffLib</title>
+  <title>Разработчики — GraffLib</title>
   <link rel="stylesheet" href="assets/css/style.css" />
-  <meta name="description" content="GraffLib - библиотека граффити работ, каталог художников и событий уличного искусства">
-  <meta property="og:title" content="GraffLib - Библиотека граффити">
-  <meta property="og:description" content="Каталог работ, профили художников, анонсы событий уличного искусства">
+  <meta name="description" content="Команда разработчиков GraffLib">
+  <meta property="og:title" content="Разработчики - GraffLib">
+  <meta property="og:description" content="Команда разработчиков проекта GraffLib">
   <meta property="og:type" content="website">
   <link rel="icon" href="assets/images/favicon.ico" type="image/x-icon">
 </head>
@@ -15,12 +15,14 @@
   <div class="page">
     <header class="container header">
       <div class="brand">
-        <div class="logo graffiti">G</div>
-        <div>
-          <div class="graffiti" style="font-size:20px">GraffLib</div>
-          <div style="font-size:12px;color:var(--muted)">Библиотека работ граффити</div>
-        </div>
+      <div class="logo">
+        <img src="assets/img/logo/logo.svg" alt="GraffLib" width="100px" height="100px">
       </div>
+      <div>
+        <div class="graffiti" style="font-size:20px">GraffLib</div>
+        <div style="font-size:12px;color:var(--muted)">Библиотека работ граффити</div>
+      </div>
+    </div>
       <nav class="nav">
         <a href="index.html">Главная</a>
         <a href="works.html">Работы</a>
@@ -31,36 +33,48 @@
         <a href="cart.html">Корзина</a>
         <a href="workers.html">Разработчики</a>
       </nav>
+      <div class="controls">
+        <button id="menuBtn" class="btn">☰</button>
+      </div>
     </header>
 
-    <main class="container">
-      <h2 class="graffiti">Кто участвовал</h2>
-      <div class="user-card">
-          <img src="./assets/img/3624994072347912238.jpg" width="100px" height="100px" style="border-radius: 100%;" class="avatar">
-          <h2 class="name">Завозов Станислав</h2>
-          <p class="bio">Типо что делал</p>
-      </div>
-      <div class="grid" style="margin-top:18px">
-    </main>
+    <main class="container main-container">
+      <h2 class="graffiti">Наша команда</h2>
+      <p style="color:var(--muted)">Разработчики, которые создали этот проект.</p>
 
-    <main class="container">
-      <h2 class="graffiti">Кто участвовал</h2>
-      <div class="user-card">
-          <img src="./assets/img/4295084673617471430.jpg" width="100px" height="100px" style="border-radius: 100%;" class="avatar">
-          <h2 class="name">Боков Всеволод</h2>
-          <p class="bio">Типо что делал</p>
-      </div>
-      <div class="grid" style="margin-top:18px">
-    </main>
+      <div class="developers-grid" style="margin-top:20px; display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px;">
+        
+        <!-- Разработчик 1 -->
+        <div class="card" style="text-align: center; padding: 20px;">
+          <div style="display: flex; justify-content: center; margin-bottom: 15px;">
+            <img src="assets/img/3624994072347912238.jpg" width="100" height="100" style="border-radius: 50%; object-fit: cover;" alt="Завозов Станислав">
+          </div>
+          <h3 style="margin: 10px 0; color: var(--accent);">Завозов Станислав</h3>
+          <p style="color: var(--muted); margin: 10px 0;">Frontend разработчик</p>
+          <p style="color: var(--muted); font-size: 14px;">Отвечал за верстку, интерфейс и пользовательский опыт</p>
+        </div>
 
-    <main class="container">
-      <h2 class="graffiti">Кто участвовал</h2>
-      <div class="user-card">
-          <img src="./assets/img/5305610703643733132.jpg" width="100px" height="100px" style="border-radius: 100%;" class="avatar">
-          <h2 class="name">Тихомиров Егор</h2>
-          <p class="bio">Типо что делал</p>
+        <!-- Разработчик 2 -->
+        <div class="card" style="text-align: center; padding: 20px;">
+          <div style="display: flex; justify-content: center; margin-bottom: 15px;">
+            <img src="assets/img/4295084673617471430.jpg" width="100" height="100" style="border-radius: 50%; object-fit: cover;" alt="Боков Всеволод">
+          </div>
+          <h3 style="margin: 10px 0; color: var(--accent);">Боков Всеволод</h3>
+          <p style="color: var(--muted); margin: 10px 0;">Backend разработчик</p>
+          <p style="color: var(--muted); font-size: 14px;">Работал над серверной частью и логикой приложения</p>
+        </div>
+
+        <!-- Разработчик 3 -->
+        <div class="card" style="text-align: center; padding: 20px;">
+          <div style="display: flex; justify-content: center; margin-bottom: 15px;">
+            <img src="assets/img/5305610703643733132.jpg" width="100" height="100" style="border-radius: 50%; object-fit: cover;" alt="Тихомиров Егор">
+          </div>
+          <h3 style="margin: 10px 0; color: var(--accent);">Тихомиров Егор</h3>
+          <p style="color: var(--muted); margin: 10px 0;">Fullstack разработчик</p>
+          <p style="color: var(--muted); font-size: 14px;">Интегрировал frontend и backend, работал над архитектурой</p>
+        </div>
+
       </div>
-      <div class="grid" style="margin-top:18px">
     </main>
 
     <footer class="container footer">
@@ -68,15 +82,8 @@
       <div>made with spray & code</div>
     </footer>
 
-    <div id="artModal" class="modal-overlay" aria-hidden="true" role="dialog" aria-labelledby="modalTitle">
-      <div class="modal-card">
-        <button class="close btn" style="float:right" aria-label="Close modal">Close</button>
-        <h3 id="modalTitle" class="modal-title graffiti" style="margin-top:4px">Title</h3>
-        <div class="modal-img"></div>
-      </div>
-    </div>
-  <script src="assets/js/data.js"></script>
-  <script src="assets/js/app.js"></script>
+    <script src="assets/js/data.js"></script>
+    <script src="assets/js/app.js"></script>
   </div>
 </body>
 </html>

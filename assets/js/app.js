@@ -155,9 +155,11 @@ document.addEventListener('DOMContentLoaded', ()=>{
       card.dataset.title = art.title;
       card.dataset.img = art.image;
       
+      const imageStyle = art.image ? `background-image: url('${art.image}')` : 'background: #111';
+      
       card.innerHTML = `
-        <div class="thumb" style="background-image: url('${art.image}'); background-size: cover; background-position: center;">
-          ${art.title}
+        <div class="thumb" style="${imageStyle}; background-size: cover; background-position: center;">
+          <!-- Название убрано из миниатюры -->
         </div>
         <div style="display:flex;justify-content:space-between;align-items:center">
           <div style="font-weight:700">${art.title}</div>
@@ -251,7 +253,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
       
       card.innerHTML = `
         <div class="thumb" style="${imageStyle}; background-size: cover; background-position: center;">
-          ${art.title}
+          <!-- Название убрано из миниатюры -->
         </div>
         <div style="display:flex;justify-content:space-between;align-items:center">
           <div style="font-weight:700">${art.title}</div>
