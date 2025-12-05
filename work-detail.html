@@ -3,11 +3,11 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Избранная — GraffLib</title>
+  <title>Работа — GraffLib</title>
   <link rel="stylesheet" href="assets/css/style.css" />
-  <meta name="description" content="GraffLib - библиотека граффити работ, каталог художников и событий уличного искусства">
-  <meta property="og:title" content="GraffLib - Библиотека граффити">
-  <meta property="og:description" content="Каталог работ, профили художников, анонсы событий уличного искусства">
+  <meta name="description" content="Подробное описание выбранной граффити-работы в GraffLib">
+  <meta property="og:title" content="Работа — GraffLib">
+  <meta property="og:description" content="Детали работы, автор, город, стиль и возможности добавить в избранное или корзину.">
   <meta property="og:type" content="website">
   <link rel="icon" href="assets/images/favicon.ico" type="image/x-icon">
 </head>
@@ -15,7 +15,7 @@
   <header class="container header">
     <div class="brand">
       <div class="logo">
-        <img src="assets/img/logo/logo.svg" alt="GraffLib" width="100px" height="100px">
+        <img src="assets/img/logo/logo.svg" alt="GraffLib" width="100" height="100">
       </div>
       <div>
         <div class="graffiti" style="font-size:20px">GraffLib</div>
@@ -34,19 +34,13 @@
     </nav>
   </header>
 
-  <main class="container">
-    <h2 class="graffiti">Избранное</h2>
-    <p style="color:var(--muted)">
-      Здесь хранятся работы, которые зацепили именно вас: по цвету, по настроению или по локации.
-    </p>
-    <p style="color:var(--muted);font-size:13px;margin-top:4px">
-      Добавляйте граффити в избранное с помощью сердца на карточке, чтобы не потерять, вернуться позже
-      или показать друзьям.
-    </p>
+  <main class="container main-container">
+    <h2 class="graffiti" id="workTitle">Работа</h2>
+    <p id="workMeta" style="color:var(--muted)"></p>
 
-    <div id="favList" class="grid" style="margin-top:10px">
-      <div class="card"><div class="thumb">Нет избранных</div></div>
-    </div>
+    <section id="workDetail" class="hero-card" style="margin-top:16px;">
+      <!-- Контент детали работы будет вставлен JavaScript -->
+    </section>
   </main>
 
   <footer class="container footer">
@@ -77,15 +71,17 @@
     </div>
   </footer>
 
-    <div id="artModal" class="modal-overlay" aria-hidden="true" role="dialog" aria-labelledby="modalTitle">
-      <div class="modal-card">
-        <button class="close btn" style="float:right" aria-label="Close modal">Close</button>
-        <h3 id="modalTitle" class="modal-title graffiti" style="margin-top:4px">Title</h3>
-        <div class="modal-img"></div>
-      </div>
+  <div id="artModal" class="modal-overlay" aria-hidden="true" role="dialog" aria-labelledby="modalTitle">
+    <div class="modal-card">
+      <button class="close btn" style="float:right" aria-label="Close modal">Close</button>
+      <h3 id="modalTitle" class="modal-title graffiti" style="margin-top:4px">Title</h3>
+      <div class="modal-img"></div>
     </div>
+  </div>
 
   <script src="assets/js/data.js"></script>
   <script src="assets/js/app.js"></script>
 </body>
 </html>
+
+

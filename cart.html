@@ -15,14 +15,14 @@
   <div class="page">
     <header class="container header">
       <div class="brand">
-      <div class="logo">
-        <img src="assets/img/logo/logo.svg" alt="GraffLib" width="100px" height="100px">
+        <div class="logo">
+          <img src="assets/img/logo/logo.svg" alt="GraffLib" width="100px" height="100px">
+        </div>
+        <div>
+          <div class="graffiti" style="font-size:20px">GraffLib</div>
+          <div style="font-size:12px;color:var(--muted)">Библиотека работ граффити</div>
+        </div>
       </div>
-      <div>
-        <div class="graffiti" style="font-size:20px">GraffLib</div>
-        <div style="font-size:12px;color:var(--muted)">Библиотека работ граффити</div>
-      </div>
-    </div>
       <nav class="nav">
         <a href="index.html">Главная</a>
         <a href="works.html">Работы</a>
@@ -37,7 +37,12 @@
 
   <main class="container">
     <h2 class="graffiti">Корзина</h2>
-    <p style="color:var(--muted)">Ваши товары:</p>
+    <p style="color:var(--muted)">
+      Здесь появятся мерч и принты, которые вы добавили из каталога работ. Корзина — ваш список «хочу на полку».
+    </p>
+    <p style="color:var(--muted);font-size:13px;margin-top:4px">
+      Нажимайте <b>Add to cart</b> на понравившихся работах, чтобы собрать набор постеров или одежды с любимыми сюжетами.
+    </p>
     <div id="cartList" class="grid" style="margin-top:12px">
       <div class="card">
         <p style="color:var(--muted)">Товары будут добавлены здесь при нажатии Add to cart.</p>
@@ -47,8 +52,31 @@
 
 
     <footer class="container footer">
-      <div>© GraffLib</div>
-      <div>made with spray & code</div>
+      <div class="footer-main">
+        <div class="footer-main-title graffiti">GraffLib</div>
+        <div class="footer-main-text">
+          Цифровая библиотека уличного искусства: работы, художники, события и мерч. Фиксируем стены, которые завтра могут исчезнуть.
+        </div>
+        <div class="footer-bottom">© GraffLib, {2025}</div>
+      </div>
+      <div class="footer-nav">
+        <div class="footer-nav-title">Навигация</div>
+        <div class="footer-links">
+          <a href="index.html">Главная</a>
+          <a href="works.html">Работы</a>
+          <a href="artists.html">Художники</a>
+          <a href="events.html">События</a>
+          <a href="about.html">О нас</a>
+        </div>
+      </div>
+      <div class="footer-meta">
+        <div class="footer-meta-title">Связь</div>
+        <div class="footer-links">
+          <span>Email: contact@grafflib.local</span>
+          <span>Telegram: @grafflib</span>
+          <small>made with spray & code</small>
+        </div>
+      </div>
     </footer>
   </div>
     <div id="artModal" class="modal-overlay" aria-hidden="true" role="dialog" aria-labelledby="modalTitle">

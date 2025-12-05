@@ -8,6 +8,21 @@
 */
 document.addEventListener('DOMContentLoaded', ()=>{
 
+  // Preloader hide on full load (with small delay so он виден чуть дольше)
+  window.addEventListener('load', () => {
+    const preloader = document.querySelector('#sitePreloader');
+    if(preloader){
+      const MIN_SHOW_TIME = 1500; // мс — можно менять под себя
+      setTimeout(() => {
+        preloader.classList.add('preloader-hidden');
+        // полное удаление из DOM после анимации
+        setTimeout(() => {
+          preloader.remove();
+        }, 500);
+      }, MIN_SHOW_TIME);
+    }
+  });
+
   // Mobile nav toggle with improved functionality
   const menuBtn = document.querySelector('#menuBtn');
   const nav = document.querySelector('.nav');
@@ -154,6 +169,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
       card.className = 'card js-art';
       card.dataset.title = art.title;
       card.dataset.img = art.image;
+      card.dataset.id = art.id;
       
       const imageStyle = art.image ? `background-image: url('${art.image}')` : 'background: #111';
       
@@ -163,7 +179,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
         </div>
         <div style="display:flex;justify-content:space-between;align-items:center">
           <div style="font-weight:700">${art.title}</div>
-          <div>
+          <div style="display:flex;gap:6px;flex-wrap:nowrap">
             <button class="btn js-fav" data-id="${art.id}">❤</button>
             <button class="btn js-addcart" data-id="${art.id}">Add to cart</button>
           </div>
@@ -247,6 +263,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
       card.className = 'card js-art';
       card.dataset.title = art.title;
       card.dataset.img = art.image;
+      card.dataset.id = art.id;
       
       // Используем placeholder если изображение не загружается
       const imageStyle = art.image ? `background-image: url('${art.image}')` : 'background: #111';
@@ -257,7 +274,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
         </div>
         <div style="display:flex;justify-content:space-between;align-items:center">
           <div style="font-weight:700">${art.title}</div>
-          <div>
+          <div style="display:flex;gap:6px;flex-wrap:nowrap">
             <button class="btn js-fav" data-id="${art.id}">❤</button>
             <button class="btn js-addcart" data-id="${art.id}">Add to cart</button>
           </div>
@@ -279,6 +296,176 @@ document.addEventListener('DOMContentLoaded', ()=>{
     console.log('Artworks rendered successfully');
   }
 
+  // 3D hero block (Three.js) — граффити‑баллон
+  function initHero3D(){
+    const container = document.getElementById('hero3d');
+    if(!container || !window.THREE) return;
+
+    const scene = new THREE.Scene();
+    scene.fog = new THREE.FogExp2(0x050505, 0.16);
+
+    const camera = new THREE.PerspectiveCamera(
+      32,
+      container.clientWidth / container.clientHeight,
+      0.1,
+      100
+    );
+    camera.position.set(0, 1.1, 4.2);
+
+    const renderer = new THREE.WebGLRenderer({ antialias:true, alpha:true });
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    renderer.setSize(container.clientWidth, container.clientHeight);
+    renderer.setClearColor(0x000000, 0); // прозрачный — фон берём из CSS
+    container.appendChild(renderer.domElement);
+
+    // Группа баллончика
+    const canGroup = new THREE.Group();
+    scene.add(canGroup);
+
+    // Корпус баллона
+    const bodyGeo = new THREE.CylinderGeometry(0.55, 0.55, 2.4, 32, 1, false);
+    const bodyMat = new THREE.MeshStandardMaterial({
+      color: 0x111111,
+      metalness: 0.7,
+      roughness: 0.35
+    });
+    const body = new THREE.Mesh(bodyGeo, bodyMat);
+    body.position.y = 0.4;
+    canGroup.add(body);
+
+    // Цветная "наклейка" по центру
+    const wrapGeo = new THREE.CylinderGeometry(0.57, 0.57, 1.1, 32, 1, true);
+    const wrapMat = new THREE.MeshStandardMaterial({
+      color: 0x161629,
+      emissive: 0x111111,
+      emissiveIntensity: 0.2,
+      metalness: 0.6,
+      roughness: 0.4,
+      side: THREE.DoubleSide
+    });
+    const wrap = new THREE.Mesh(wrapGeo, wrapMat);
+    wrap.position.y = 0.4;
+    canGroup.add(wrap);
+
+    // Неоновые полосы на корпусе — как яркий тег
+    const neonMatPink = new THREE.MeshStandardMaterial({
+      color: 0xff2a8a,
+      emissive: 0xff2a8a,
+      emissiveIntensity: 2.2,
+      metalness: 0.8,
+      roughness: 0.25
+    });
+    const neonMatCyan = new THREE.MeshStandardMaterial({
+      color: 0x3bf5ff,
+      emissive: 0x3bf5ff,
+      emissiveIntensity: 2.0,
+      metalness: 0.8,
+      roughness: 0.25
+    });
+
+    const ringGeo = new THREE.TorusGeometry(0.6, 0.03, 16, 64);
+    const ringTop = new THREE.Mesh(ringGeo, neonMatPink);
+    ringTop.position.y = 0.95;
+    ringTop.rotation.x = Math.PI / 2;
+    const ringMid = new THREE.Mesh(ringGeo, neonMatCyan);
+    ringMid.position.y = 0.4;
+    ringMid.rotation.x = Math.PI / 2;
+    const ringBottom = new THREE.Mesh(ringGeo, neonMatPink);
+    ringBottom.position.y = -0.15;
+    ringBottom.rotation.x = Math.PI / 2;
+    canGroup.add(ringTop, ringMid, ringBottom);
+
+    // Верхняя металлическая "шляпка"
+    const capGeo = new THREE.CylinderGeometry(0.45, 0.55, 0.35, 32);
+    const capMat = new THREE.MeshStandardMaterial({
+      color: 0xededed,
+      metalness: 1,
+      roughness: 0.18
+    });
+    const cap = new THREE.Mesh(capGeo, capMat);
+    cap.position.y = 1.65;
+    canGroup.add(cap);
+
+    // Сопло
+    const nozzleGeo = new THREE.CylinderGeometry(0.14, 0.2, 0.22, 24);
+    const nozzleMat = new THREE.MeshStandardMaterial({
+      color: 0xffffff,
+      metalness: 0.6,
+      roughness: 0.25
+    });
+    const nozzle = new THREE.Mesh(nozzleGeo, nozzleMat);
+    nozzle.position.set(0.08, 1.9, 0.02);
+    nozzle.rotation.z = -0.3;
+    canGroup.add(nozzle);
+
+    // Маленькое тёмное отверстие сопла
+    const holeGeo = new THREE.CylinderGeometry(0.03, 0.03, 0.05, 16);
+    const holeMat = new THREE.MeshStandardMaterial({
+      color: 0x111111,
+      metalness: 0.5,
+      roughness: 0.5
+    });
+    const hole = new THREE.Mesh(holeGeo, holeMat);
+    hole.rotation.x = Math.PI / 2;
+    hole.position.set(0.13, 1.9, 0.12);
+    canGroup.add(hole);
+
+    // Лёгкое "облако" краски
+    const sprayGeo = new THREE.SphereGeometry(0.35, 24, 24);
+    const sprayMat = new THREE.MeshStandardMaterial({
+      color: 0xff2a8a,
+      emissive: 0xff2a8a,
+      emissiveIntensity: 0.6,
+      transparent: true,
+      opacity: 0.35
+    });
+    const spray = new THREE.Mesh(sprayGeo, sprayMat);
+    spray.position.set(0.3, 1.8, 0.6);
+    canGroup.add(spray);
+
+    // Лёгкий наклон
+    canGroup.rotation.z = -0.12;
+    canGroup.position.set(0, -0.05, 0);
+
+    // Свет
+    const ambient = new THREE.AmbientLight(0xffffff, 0.5);
+    scene.add(ambient);
+
+    const keyLight = new THREE.PointLight(0xff2a8a, 1.6, 10);
+    keyLight.position.set(2.2, 2.2, 3.2);
+    const rimLight = new THREE.PointLight(0x3bf5ff, 1.5, 10);
+    rimLight.position.set(-2.0, 0.4, 3.8);
+    const bottomLight = new THREE.PointLight(0xffffff, 0.4, 8);
+    bottomLight.position.set(0, -2.4, 2.0);
+    scene.add(keyLight, rimLight, bottomLight);
+
+    // Анимация
+    let lastTime = 0;
+    function animate(time){
+      const dt = (time - lastTime) / 1000 || 0;
+      lastTime = time;
+
+      const t = time * 0.001;
+      canGroup.rotation.y += 0.55 * dt;
+      canGroup.position.y = -0.1 + Math.sin(t * 1.4) * 0.08;
+      spray.scale.setScalar(1 + Math.sin(t * 3.0) * 0.07);
+
+      renderer.render(scene, camera);
+      requestAnimationFrame(animate);
+    }
+    requestAnimationFrame(animate);
+
+    // Ресайз
+    window.addEventListener('resize', () => {
+      if(!container) return;
+      const w = container.clientWidth || 1;
+      const h = container.clientHeight || 1;
+      camera.aspect = w / h;
+      camera.updateProjectionMatrix();
+      renderer.setSize(w, h);
+    });
+  }
+
   // Artwork preview modal - FIXED CLICK HANDLER
   const modal = document.querySelector('#artModal');
   const modalTitle = modal ? modal.querySelector('.modal-title') : null;
@@ -286,20 +473,14 @@ document.addEventListener('DOMContentLoaded', ()=>{
 
   // Fixed: Proper delegated event handling for artwork clicks
   document.addEventListener('click', (e) => {
-    // Check if clicked element or its parent has js-art class
-    const artCard = e.target.closest('.js-art');
-    if (artCard) {
-      e.preventDefault();
-      const title = artCard.dataset.title || 'Artwork';
-      const img = artCard.dataset.img || '';
-      showModal(title, img);
-      return;
-    }
+    // Сначала обрабатываем избранное и корзину,
+    // чтобы клик по кнопкам НЕ открывал большое изображение
 
     // Favorite functionality
     const fav = e.target.closest('.js-fav');
     if(fav){
       e.preventDefault();
+      e.stopPropagation();
       const id = fav.dataset.id;
       if (!id) return;
       
@@ -321,6 +502,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
     const cart = e.target.closest('.js-addcart');
     if(cart){
       e.preventDefault();
+      e.stopPropagation();
       const id = cart.dataset.id;
       if (!id) return;
       
@@ -339,6 +521,39 @@ document.addEventListener('DOMContentLoaded', ()=>{
           cart.textContent = 'In Cart';
           cart.disabled = true;
         }, 1000);
+      }
+      return;
+    }
+
+    // Remove from cart (cart page)
+    const removeBtn = e.target.closest('.js-remove-cart');
+    if (removeBtn) {
+      e.preventDefault();
+      e.stopPropagation();
+      const id = removeBtn.dataset.id;
+      if (!id) return;
+
+      let items = read('cart');
+      items = items.filter(x => x !== id);
+      write('cart', items);
+
+      // Перерисуем корзину, если мы на её странице
+      renderList('#cartList', 'cart', 'Корзина пуста');
+      return;
+    }
+
+    // Только если клик был не по кнопкам — открываем детальную страницу работы
+    const artCard = e.target.closest('.js-art');
+    if (artCard) {
+      e.preventDefault();
+      const id = artCard.dataset.id;
+      if (id) {
+        const url = `work-detail.html?id=${encodeURIComponent(id)}`;
+        window.location.href = url;
+      } else {
+        const title = artCard.dataset.title || 'Artwork';
+        const img = artCard.dataset.img || '';
+        showModal(title, img);
       }
       return;
     }
@@ -439,17 +654,53 @@ document.addEventListener('DOMContentLoaded', ()=>{
     
     root.innerHTML = '';
     data.forEach(id => {
+      const art = (window.artworks || []).find(a => a.id === id);
       const el = document.createElement('div');
-      el.className = 'card';
-      el.innerHTML = `
-        <div class="thumb">Item ${id}</div>
-        <div style="display:flex;justify-content:space-between;align-items:center">
-          <div style="font-weight:700">Item ${id}</div>
-          <div>
+      el.className = 'card js-art';
+      el.dataset.id = id;
+      el.dataset.title = art ? art.title : `Работа ${id}`;
+      el.dataset.img = art ? art.image : '';
+
+      const actionsHtml = key === 'cart'
+        ? `
+            <button class="btn js-addcart" data-id="${id}">Add to cart</button>
+            <button class="btn js-remove-cart" data-id="${id}">Удалить</button>
+          `
+        : `
             <button class="btn js-fav" data-id="${id}">❤</button>
             <button class="btn js-addcart" data-id="${id}">Add to cart</button>
+          `;
+
+      const actionsWrapperStyle = key === 'cart'
+        ? 'display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end'
+        : 'display:flex;gap:6px;flex-wrap:nowrap';
+
+      if (art) {
+        el.innerHTML = `
+          <div class="thumb" style="background-image:url('${art.image}');background-size:cover;background-position:center;"></div>
+          <div style="display:flex;justify-content:space-between;align-items:center">
+            <div style="font-weight:700">${art.title}</div>
+            <div style="${actionsWrapperStyle}">
+              ${actionsHtml}
+            </div>
           </div>
-        </div>`;
+          <div style="color:var(--muted); font-size:14px; margin-top:8px;">
+            Художник: ${art.artist} • Город: ${art.city}<br>
+            Стиль: ${art.style} • ${art.price}
+          </div>
+        `;
+      } else {
+        el.innerHTML = `
+          <div class="thumb">Работа ${id}</div>
+          <div style="display:flex;justify-content:space-between;align-items:center">
+            <div style="font-weight:700">Работа ${id}</div>
+            <div style="${actionsWrapperStyle}">
+              ${actionsHtml}
+            </div>
+          </div>
+        `;
+      }
+
       root.appendChild(el);
     });
     
@@ -461,13 +712,87 @@ document.addEventListener('DOMContentLoaded', ()=>{
   // Initialize all interactive elements
   initializeFavorites();
   initializeCart();
+
+  // Init 3D hero if контейнер есть
+  initHero3D();
   
-  // Render artworks if data exists
+  // Render artworks if мы на странице c сеткой работ
   renderArtworks();
   
   // Render lists on specific pages
   renderList('#favList', 'favorites', 'Нет избранных');
   renderList('#cartList', 'cart', 'Корзина пуста');
+
+  // Детальная страница работы
+  (function renderWorkDetailPage(){
+    const detailRoot = document.querySelector('#workDetail');
+    if(!detailRoot || !window.artworks) return;
+
+    const params = new URLSearchParams(window.location.search);
+    const id = params.get('id');
+    const art = window.artworks.find(a => a.id === id);
+
+    const titleEl = document.querySelector('#workTitle');
+    const metaEl = document.querySelector('#workMeta');
+
+    if(!art){
+      if (titleEl) titleEl.textContent = 'Работа не найдена';
+      if (metaEl) metaEl.textContent = 'Проверьте ссылку или откройте каталог работ.';
+      detailRoot.innerHTML = `
+        <div class="card">
+          <div class="thumb">
+            Данных по этой работе нет. Откройте раздел «Работы», чтобы выбрать другую.
+          </div>
+        </div>
+      `;
+      return;
+    }
+
+    if (titleEl) titleEl.textContent = art.title;
+    if (metaEl) metaEl.textContent = `${art.artist} • ${art.city} • ${art.style} • ${art.price}`;
+
+    const descriptionByStyle = {
+      'Мурал': 'Крупный мурал, который собирает внимание целого двора или улицы. Такие работы часто становятся неформальными ориентирами района.',
+      'Шрифты': 'Шрифтовая работа, где основная роль у букв и форм. Леттеринг, который превращает текст в полноценный визуальный образ.',
+      'Персонажи': 'Работа с персонажами и героями. Взгляд, пластика и эмоция здесь так же важны, как и цвет.',
+      '3D': 'Объёмное граффити с иллюзией глубины. При правильном ракурсе работа «выходит» из стены.',
+      'Абстракция': 'Абстрактное граффити, которое работает через ритм, форму и цвет, а не через сюжет.',
+      'Реализм': 'Реалистичные детали и светотень, которые делают работу похожей на фотографию.'
+    };
+
+    const styleDesc = descriptionByStyle[art.style] || 'Эта работа отражает почерк автора и атмосферу города, в котором она появилась.';
+
+    detailRoot.innerHTML = `
+      <div style="display:grid;grid-template-columns:minmax(0,360px) minmax(0,1fr);gap:20px;align-items:flex-start;">
+        <div>
+          <div style="width:100%;max-width:420px;border-radius:12px;overflow:hidden;background:#111;">
+            <img src="${art.image}" alt="${art.title}" style="width:100%;height:auto;display:block;object-fit:cover;">
+          </div>
+        </div>
+        <div>
+          <p style="color:var(--muted);margin-top:0;">
+            ${styleDesc}
+          </p>
+          <p style="color:var(--muted);margin-top:10px;">
+            Локация: ${art.city}. Стиль: ${art.style}. Примерная стоимость работы в каталоге: ${art.price}.
+          </p>
+          <p style="color:var(--muted);margin-top:10px;font-size:13px;">
+            Добавьте работу в избранное, чтобы не потерять, или в корзину, если хотите заказать принт или мерч с этим изображением.
+          </p>
+
+          <div style="margin-top:16px;display:flex;flex-wrap:wrap;gap:8px;align-items:center;">
+            <button class="btn js-fav" data-id="${art.id}">❤</button>
+            <button class="btn js-addcart" data-id="${art.id}">Add to cart</button>
+            <button class="btn ghost" onclick="location.href='works.html'">Назад к каталогу</button>
+          </div>
+        </div>
+      </div>
+    `;
+
+    // Инициализируем состояние кнопок для этой страницы
+    initializeFavorites();
+    initializeCart();
+  })();
 
   console.log('GraffLib JS loaded successfully'); // Debug log
 

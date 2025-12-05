@@ -3,11 +3,11 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Избранная — GraffLib</title>
+  <title>Exhibit — GraffLib</title>
   <link rel="stylesheet" href="assets/css/style.css" />
-  <meta name="description" content="GraffLib - библиотека граффити работ, каталог художников и событий уличного искусства">
-  <meta property="og:title" content="GraffLib - Библиотека граффити">
-  <meta property="og:description" content="Каталог работ, профили художников, анонсы событий уличного искусства">
+  <meta name="description" content="Выставка Exhibit — лучшие работы сезона в галерее современного искусства.">
+  <meta property="og:title" content="Exhibit — событие GraffLib">
+  <meta property="og:description" content="Муралы, скетчи и принты в формате галереи.">
   <meta property="og:type" content="website">
   <link rel="icon" href="assets/images/favicon.ico" type="image/x-icon">
 </head>
@@ -15,7 +15,7 @@
   <header class="container header">
     <div class="brand">
       <div class="logo">
-        <img src="assets/img/logo/logo.svg" alt="GraffLib" width="100px" height="100px">
+        <img src="assets/img/logo/logo.svg" alt="GraffLib" width="100" height="100">
       </div>
       <div>
         <div class="graffiti" style="font-size:20px">GraffLib</div>
@@ -34,19 +34,29 @@
     </nav>
   </header>
 
-  <main class="container">
-    <h2 class="graffiti">Избранное</h2>
-    <p style="color:var(--muted)">
-      Здесь хранятся работы, которые зацепили именно вас: по цвету, по настроению или по локации.
-    </p>
-    <p style="color:var(--muted);font-size:13px;margin-top:4px">
-      Добавляйте граффити в избранное с помощью сердца на карточке, чтобы не потерять, вернуться позже
-      или показать друзьям.
-    </p>
+  <main class="container main-container">
+    <h2 class="graffiti">Exhibit — 20 Янв</h2>
+    <p style="color:var(--muted)">Галерея современного искусства • Выставка</p>
 
-    <div id="favList" class="grid" style="margin-top:10px">
-      <div class="card"><div class="thumb">Нет избранных</div></div>
-    </div>
+    <section class="hero-card" style="margin-top:16px;">
+      <p style="color:var(--muted);margin-top:0;">
+        Exhibit — это возможность увидеть уличное искусство в формате галереи: крупные принты муралов,
+        оригинальные скетчи, эскизы тэгов и фото с реальных локаций. Пространство построено так, чтобы
+        показать путь работы от блокнота до стены.
+      </p>
+      <p style="color:var(--muted);margin-top:10px;">
+        На выставке представлены как известные авторы из каталога GraffLib, так и новые имена.
+        Каждой работе сопутствуют подписи с информацией о месте, технике и истории создания.
+      </p>
+      <p style="color:var(--muted);margin-top:10px;">
+        В рамках Exhibit проходят artist‑talks, где художники рассказывают о своих подходах, и небольшая
+        ярмарка принтов и мерча.
+      </p>
+
+      <div style="margin-top:16px;display:flex;flex-wrap:wrap;gap:8px;">
+        <button class="btn ghost" onclick="location.href='events.html'">Назад к событиям</button>
+      </div>
+    </section>
   </main>
 
   <footer class="container footer">
@@ -77,15 +87,9 @@
     </div>
   </footer>
 
-    <div id="artModal" class="modal-overlay" aria-hidden="true" role="dialog" aria-labelledby="modalTitle">
-      <div class="modal-card">
-        <button class="close btn" style="float:right" aria-label="Close modal">Close</button>
-        <h3 id="modalTitle" class="modal-title graffiti" style="margin-top:4px">Title</h3>
-        <div class="modal-img"></div>
-      </div>
-    </div>
-
   <script src="assets/js/data.js"></script>
   <script src="assets/js/app.js"></script>
 </body>
 </html>
+
+
