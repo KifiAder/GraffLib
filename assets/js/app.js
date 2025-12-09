@@ -23,20 +23,40 @@ document.addEventListener('DOMContentLoaded', ()=>{
     }
   });
 
-  // Mobile nav toggle with improved functionality
-  const menuBtn = document.querySelector('#menuBtn');
+  // Mobile nav toggle with improved functionality + auto-injected button for all страниц
+  const header = document.querySelector('.header');
+  let menuBtn = document.querySelector('#menuBtn');
   const nav = document.querySelector('.nav');
-  
+
+  if (!menuBtn && header) {
+    menuBtn = document.createElement('button');
+    menuBtn.id = 'menuBtn';
+    menuBtn.type = 'button';
+    menuBtn.className = 'menu-toggle';
+    menuBtn.setAttribute('aria-label', 'Открыть меню');
+    menuBtn.setAttribute('aria-expanded', 'false');
+    menuBtn.innerHTML = '<span></span><span></span><span></span>';
+
+    const navNode = header.querySelector('.nav');
+    if (navNode && navNode.parentNode) {
+      header.insertBefore(menuBtn, navNode);
+    } else {
+      header.appendChild(menuBtn);
+    }
+  }
+
   if(menuBtn && nav){
     menuBtn.addEventListener('click', (e) => {
       e.stopPropagation();
-      nav.classList.toggle('show');
+      const isOpen = nav.classList.toggle('show');
+      menuBtn.setAttribute('aria-expanded', String(isOpen));
     });
 
     // Close menu when clicking outside
     document.addEventListener('click', (e) => {
       if (!nav.contains(e.target) && !menuBtn.contains(e.target)) {
         nav.classList.remove('show');
+        menuBtn.setAttribute('aria-expanded', 'false');
       }
     });
 
@@ -44,9 +64,23 @@ document.addEventListener('DOMContentLoaded', ()=>{
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape') {
         nav.classList.remove('show');
+        menuBtn.setAttribute('aria-expanded', 'false');
       }
     });
   }
+
+  // Ensure profile link exists in nav
+  (function ensureProfileLink(){
+    const navEl = document.querySelector('.nav');
+    if(!navEl) return;
+    const hasProfile = Array.from(navEl.querySelectorAll('a')).some(a => (a.getAttribute('href')||'') === 'profile.html');
+    if(!hasProfile){
+      const link = document.createElement('a');
+      link.href = 'profile.html';
+      link.textContent = 'Профиль';
+      navEl.appendChild(link);
+    }
+  })();
 
   // LocalStorage helpers with error handling
   function read(key){ 
@@ -709,6 +743,55 @@ document.addEventListener('DOMContentLoaded', ()=>{
     initializeCart();
   }
 
+  // Registrations (events) helpers
+  function saveRegistration(reg){
+    const list = read('registrations');
+    list.push(reg);
+    write('registrations', list);
+  }
+
+  function renderRegistrations(){
+    const root = document.querySelector('#regList');
+    if(!root) return;
+    const regs = read('registrations');
+    if(!regs.length){
+      root.innerHTML = `
+        <div class="card" style="grid-column:1 / -1;">
+          <div class="thumb" style="height:140px;display:flex;align-items:center;justify-content:center;color:var(--muted);">
+            Нет записей на события
+          </div>
+        </div>
+      `;
+      return;
+    }
+    root.innerHTML = '';
+    const eventPages = {
+      'jam-moscow': 'event-jam-moscow.html',
+      'exhibit': 'event-exhibit.html',
+      'workshop': 'event-workshop.html',
+      'festival': 'event-festival.html'
+    };
+    regs.slice().reverse().forEach(reg => {
+      const link = eventPages[reg.eventId] || 'events.html';
+      const card = document.createElement('div');
+      card.className = 'card';
+      card.innerHTML = `
+        <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap">
+          <div style="font-weight:700">${reg.eventTitle || 'Событие'}</div>
+          <span class="badge">${reg.eventDate || ''}</span>
+        </div>
+        <div style="color:var(--muted); margin-top:8px; font-size:14px;">
+          Имя: ${reg.name || '—'}<br>
+          Email: ${reg.email || '—'}
+        </div>
+        <div style="margin-top:12px;display:flex;gap:8px;flex-wrap:wrap;">
+          <a class="btn ghost" href="${link}">Перейти к событию</a>
+        </div>
+      `;
+      root.appendChild(card);
+    });
+  }
+
   // Initialize all interactive elements
   initializeFavorites();
   initializeCart();
@@ -722,6 +805,32 @@ document.addEventListener('DOMContentLoaded', ()=>{
   // Render lists on specific pages
   renderList('#favList', 'favorites', 'Нет избранных');
   renderList('#cartList', 'cart', 'Корзина пуста');
+  renderRegistrations();
+
+  // Attach event registration handlers
+  document.querySelectorAll('.js-event-form').forEach(form => {
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const name = (form.querySelector('input[name=\"name\"]')?.value || '').trim();
+      const email = (form.querySelector('input[name=\"email\"]')?.value || '').trim();
+      if(!name || !email) return;
+      saveRegistration({
+        eventId: form.dataset.eventId || 'event',
+        eventTitle: form.dataset.eventTitle || 'Событие',
+        eventDate: form.dataset.eventDate || '',
+        name,
+        email,
+        ts: Date.now()
+      });
+      form.reset();
+      const status = form.querySelector('.form-status');
+      if(status){
+        status.textContent = 'Вы записаны на событие';
+        status.style.color = '#9ae6b4';
+      }
+      renderRegistrations();
+    });
+  });
 
   // Детальная страница работы
   (function renderWorkDetailPage(){

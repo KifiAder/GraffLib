@@ -3,19 +3,16 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Работа — GraffLib</title>
+  <title>Профиль — GraffLib</title>
+  <meta name="description" content="Профиль пользователя GraffLib: записи на события, избранное и корзина.">
   <link rel="stylesheet" href="assets/css/style.css" />
-  <meta name="description" content="Подробное описание выбранной граффити-работы в GraffLib">
-  <meta property="og:title" content="Работа — GraffLib">
-  <meta property="og:description" content="Детали работы, автор, город, стиль и возможности добавить в избранное или корзину.">
-  <meta property="og:type" content="website">
   <link rel="icon" href="assets/img/logo/logo.svg" type="image/svg+xml">
 </head>
 <body>
   <header class="container header">
     <div class="brand">
       <div class="logo">
-        <img src="assets/img/logo/logo.svg" alt="GraffLib" width="100" height="100">
+        <img src="assets/img/logo/logo.svg" alt="GraffLib" width="100px" height="100px">
       </div>
       <div>
         <div class="graffiti" style="font-size:20px">GraffLib</div>
@@ -37,11 +34,24 @@
   </header>
 
   <main class="container main-container">
-    <h2 class="graffiti" id="workTitle">Работа</h2>
-    <p id="workMeta" style="color:var(--muted)"></p>
+    <h2 class="graffiti">Профиль</h2>
+    <p style="color:var(--muted)">
+      Здесь видны ваши записи на события, избранное и корзина. Данные сохраняются в браузере (localStorage).
+    </p>
 
-    <section id="workDetail" class="hero-card" style="margin-top:16px;">
-      <!-- Контент детали работы будет вставлен JavaScript -->
+    <section class="hero-card" style="margin-top:18px;">
+      <h3 style="margin-top:0">Записи на события</h3>
+      <div id="regList" class="grid"></div>
+    </section>
+
+    <section class="hero-card" style="margin-top:18px;">
+      <h3 style="margin-top:0">Избранное</h3>
+      <div id="favList" class="grid"></div>
+    </section>
+
+    <section class="hero-card" style="margin-top:18px;">
+      <h3 style="margin-top:0">Корзина</h3>
+      <div id="cartList" class="grid"></div>
     </section>
   </main>
 
@@ -73,17 +83,8 @@
     </div>
   </footer>
 
-  <div id="artModal" class="modal-overlay" aria-hidden="true" role="dialog" aria-labelledby="modalTitle">
-    <div class="modal-card">
-      <button class="close btn" style="float:right" aria-label="Close modal">Close</button>
-      <h3 id="modalTitle" class="modal-title graffiti" style="margin-top:4px">Title</h3>
-      <div class="modal-img"></div>
-    </div>
-  </div>
-
   <script src="assets/js/data.js"></script>
   <script src="assets/js/app.js"></script>
 </body>
 </html>
-
 

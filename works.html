@@ -26,7 +26,9 @@
       <a href="about.html">О нас</a>
       <a href="favorites.html">Избранная</a>
       <a href="cart.html">Корзина</a>
-      <a href="workers.html">Разработчики</a>
+      <a href="guides.html">Гайды</a>
+      <a href="disclaimer.html">Дисклеймер</a>
+      <a href="profile.html">Профиль</a>
     </nav>
   </header>
 
@@ -63,6 +65,15 @@
             <option value="3D">3D</option>
             <option value="Абстракция">Абстракция</option>
             <option value="Реализм">Реализм</option>
+          </select>
+        </div>
+        <div style="display: flex; align-items: center; gap: 8px;">
+          <label style="color: var(--muted); font-size: 14px;">Сортировка:</label>
+          <select class="filter-select" id="sortSelect">
+            <option value="default">По умолчанию</option>
+            <option value="price-asc">Цена ↑</option>
+            <option value="price-desc">Цена ↓</option>
+            <option value="title-asc">Название A→Я</option>
           </select>
         </div>
         <button class="btn ghost" id="resetFilters">Сбросить фильтры</button>

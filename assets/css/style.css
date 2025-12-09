@@ -19,6 +19,13 @@ body{
   -moz-osx-font-smoothing:grayscale;
   line-height:1.4;
   -webkit-font-feature-settings: "liga" 0;
+  font-feature-settings: "liga" 0;
+}
+
+img{
+  max-width:100%;
+  height:auto;
+  display:block;
 }
 
 .graffiti{
@@ -37,6 +44,7 @@ body{
   align-items:center;
   justify-content:space-between;
   gap:12px;
+  flex-wrap:wrap;
   padding:12px 0;
   border-bottom:1px solid rgba(255,255,255,0.06);
   position:sticky;
@@ -65,6 +73,7 @@ body{
 }
 .nav{
   display:flex;
+  flex-wrap:wrap;
   gap:14px;
   transition: all 0.3s ease;
 }
@@ -74,10 +83,34 @@ body{
   padding:8px 10px;
   border-radius:6px;
   transition:all .18s ease;
-  font-weight:600px;
+  font-weight:600;
   font-size:15px;
+  white-space:nowrap;
 }
 .nav a:hover{ background:rgba(255,255,255,0.03); transform:translateY(-2px);}
+
+.menu-toggle{
+  display:none;
+  align-items:center;
+  justify-content:center;
+  width:46px;
+  height:42px;
+  border-radius:10px;
+  border:1px solid rgba(255,255,255,0.1);
+  background:rgba(255,255,255,0.03);
+  color:var(--accent);
+  cursor:pointer;
+  transition:all .2s ease;
+}
+.menu-toggle span{
+  display:block;
+  width:18px;
+  height:2px;
+  background:var(--accent);
+  border-radius:99px;
+}
+.menu-toggle span + span{ margin-top:5px; }
+.menu-toggle:hover{ background:rgba(255,255,255,0.06); }
 
 .controls{display:flex;gap:10px;align-items:center}
 
@@ -279,32 +312,48 @@ body{
   white-space:nowrap;
 }
 
-@media (max-width:1100px){
-  .container{ padding:18px; }
-  .hero{ grid-template-columns:1fr; }
-  .footer{
-    flex-direction:column;
-    align-items:flex-start;
-  }
+@media (max-width:1200px){
+  .container{ padding:20px; }
+  .hero{ grid-template-columns:1fr 320px; }
 }
+
 @media (max-width:900px){
+  .header{ align-items:flex-start; }
+  .menu-toggle{ display:flex; }
   .nav{ 
-    display: none;
+    display:none;
     position: fixed;
-    top: 80px;
+    top: 76px;
     left: 0;
     right: 0;
     background: var(--bg);
     flex-direction: column;
-    padding: 20px;
+    gap:12px;
+    padding: 18px 20px 24px;
     border-bottom: 1px solid rgba(255,255,255,0.06);
+    z-index:70;
   }
-  .nav.show{
-    display: flex;
-  }
-  .logo{ width:48px;height:48px;font-size:18px; }
+  .nav.show{ display:flex; }
+  .brand{ gap:10px; }
+  .logo{ width:64px;height:64px;font-size:18px; }
+  .hero{ grid-template-columns:1fr; }
+  .hero-card{ width:100%; }
   .hero-art{ height:260px; }
+  .grid{ grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); }
+  .thumb{ height:140px; }
+  .footer{ flex-direction:column; align-items:flex-start; }
+}
+
+@media (max-width:600px){
+  .container{ padding:14px; }
+  .header{ gap:8px; }
+  .nav{ padding:16px; }
+  .logo{ width:54px; height:54px; }
+  .grid{ grid-template-columns:1fr; gap:14px; }
+  .hero-card{ padding:14px; }
   .thumb{ height:120px; }
+  .hero-art{ height:220px; }
+  .footer{ gap:12px; }
 }
 
 html, body {
@@ -499,5 +548,101 @@ main {
   .logo img {
     width: 200px;
     height: 200px;
+  }
+}
+
+form {
+  background: var(--card);
+  padding: 16px;
+  border-radius: 10px;
+  box-shadow: 0 6px 22px rgba(0,0,0,0.7);
+}
+
+form label {
+  display: block;
+  margin-bottom: 8px;
+}
+
+form input, form select {
+  width: 100%;
+  padding: 8px;
+  border-radius: 8px;
+  margin-bottom: 16px;
+}
+
+form button {
+  width: 100%;
+  padding: 8px;
+  border-radius: 8px;
+  background: var(--accent);
+  color: var(--bg);
+  cursor: pointer;
+}
+/* Общие стили для мобильных устройств */
+@media (max-width: 768px) {
+  body {
+    padding: 16px;
+  }
+
+  .container {
+    padding: 16px;
+  }
+
+  .header {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .nav {
+    display: none;
+  }
+
+  .nav.show {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+
+  .logo {
+    width: 48px;
+    height: 48px;
+    font-size: 18px;
+  }
+
+  .hero-art {
+    height: 260px;
+  }
+
+  .thumb {
+    height: 120px;
+  }
+
+  .grid {
+    grid-template-columns: 1fr;
+  }
+
+  .artists {
+    grid-template-columns: 1fr;
+  }
+
+  .footer {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .footer-main {
+    margin-bottom: 20px;
+  }
+
+  .footer-nav,
+  .footer-meta {
+    margin-top: 10px;
+  }
+
+  .footer-links {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
   }
 }
