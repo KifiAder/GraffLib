@@ -35,7 +35,6 @@ document.addEventListener('DOMContentLoaded', ()=>{
     menuBtn.className = 'menu-toggle';
     menuBtn.setAttribute('aria-label', 'Открыть меню');
     menuBtn.setAttribute('aria-expanded', 'false');
-    menuBtn.setAttribute('border', 'none');
     menuBtn.innerHTML = '<p>☰</p>';
 
     const navNode = header.querySelector('.nav');
