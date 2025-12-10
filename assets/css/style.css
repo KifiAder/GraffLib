@@ -95,9 +95,8 @@ img{
   justify-content:center;
   width:46px;
   height:42px;
-  border-radius:10px;
-  border:1px solid rgba(255,255,255,0.1);
-  background:rgba(255,255,255,0.03);
+  border: none;
+  background:rgba(0, 0, 0, 0.03);
   color:var(--accent);
   cursor:pointer;
   transition:all .2s ease;
@@ -110,7 +109,6 @@ img{
   border-radius:99px;
 }
 .menu-toggle span + span{ margin-top:5px; }
-.menu-toggle:hover{ background:rgba(255,255,255,0.06); }
 
 .controls{display:flex;gap:10px;align-items:center}
 
